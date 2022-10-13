@@ -1,6 +1,6 @@
 import React from "react";
-import { StyledButton } from "../../styles/globals";
+import { View } from "react-native";
 
 export default function Button() {
-  return <StyledButton onPress={() => console.log("ok")} title='Submit' />;
+  return <View>{/* Button code goes here */}</View>;
 }

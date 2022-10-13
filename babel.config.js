@@ -6,7 +6,9 @@ module.exports = function (api) {
       "nativewind/babel",
       [
         "module-resolver",
+
         {
+          mode: "transformOnly",
           root: ["./src"],
           alias: {
             "@styled": "./styles/globals.ts",

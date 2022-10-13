@@ -1,11 +1,6 @@
-import Button from "./src/components/button";
-import { StyledText, StyledView } from "./src/styles/globals";
+import { Text, View } from "react-native";
+import { StyledText } from "./src/styles/globals";
 
 export default function App() {
-  return (
-    <StyledView className="items-center justify-center flex-1">
-      <StyledText className="text-4xl font-bold">Hello worldok!</StyledText>
-      <Button />
-    </StyledView>
-  );
+  return <View>{/* Navigation goes here */}</View>;
 }
