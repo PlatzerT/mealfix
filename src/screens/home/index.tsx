@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import {
+  StyledButton,
   StyledSafeAreaView,
+  StyledText,
   StyledTextInput,
   StyledView,
 } from "../../styles/globals";
 import Icon from "react-native-vector-icons/Feather";
+import { getAllIngredients } from "../../services/recipe-service";
 
 export default function HomeScreen() {
   const [searchText, onChangeSearchText] = useState("");
@@ -18,16 +21,22 @@ export default function HomeScreen() {
             color={"#6b7280"}
             style={{
               padding: 11,
-              backgroundColor: "#f3f4f6",
+              backgroundColor: "white",
             }}
             size={18}
           />
           <StyledTextInput
-            className='flex-1 py-3 pr-3 bg-gray-100'
+            className='flex-1 py-3 pr-3 bg-white'
             onChangeText={onChangeSearchText}
             value={searchText}
           />
         </StyledView>
+        <StyledText>ok</StyledText>
+        <StyledButton
+          className='bg-black'
+          title='Fetch'
+          onPress={() => getAllIngredients()}
+        />
       </StyledView>
     </StyledView>
   );
