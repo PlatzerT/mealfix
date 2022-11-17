@@ -1,12 +1,17 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeWindStyleSheet } from "nativewind";
 import Icon from "react-native-vector-icons/Ionicons";
 import FavoritesScreen from "./src/screens/favorites";
 import HistoryScreen from "./src/screens/history";
 import HomeScreen from "./src/screens/home";
 
 const Tab = createBottomTabNavigator();
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 export default function App() {
   return (
