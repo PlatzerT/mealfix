@@ -9,10 +9,10 @@ interface Props {
 export default function IngredientItem({ ingredient }: Props) {
   return (
     <TouchableOpacity
-      className='p-4 bg-red-500 border border-gray-200'
+      className='p-4 bg-white border border-gray-100 rounded-lg'
       onPress={(e) => console.log("pressed")}
     >
-      <Text>{ingredient.strIngredient}</Text>
+      <Text className='font-semibold'>{ingredient.strIngredient}</Text>
     </TouchableOpacity>
   );
 }

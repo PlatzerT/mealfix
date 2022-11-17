@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import { Ingredient } from "../../types/ingredient";
 import IngredientItem from "../ingredient-item";
+import { FlatGrid } from "react-native-super-grid";
 
 interface Props {
   ingredients: Ingredient[];
@@ -17,11 +18,19 @@ export default function IngredientList({ ingredients }: Props) {
   );
   return (
     <View>
-      <FlatList
+      <FlatGrid
+        className='mx-[-10]'
         data={ingredients}
         renderItem={renderItem}
-        keyExtractor={(item) => item.idIngredient}
+        spacing={10}
       />
+      {/*<FlatList
+        key={"sd"}
+        data={ingredients}
+        numColumns={2}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.idIngredient}
+  />*/}
     </View>
   );
 }
