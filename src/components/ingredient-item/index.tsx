@@ -1,18 +1,38 @@
-import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import clsx from "clsx";
+import React, { memo, useState } from "react";
+import {
+  Pressable,
+  Text,
+  Touchable,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
+import { SelectableIngredient } from "../../screens/home";
 import { Ingredient } from "../../types/ingredient";
+import { MealsScreenParamList } from "../../types/MealsScreenParamList";
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   ingredient: Ingredient;
+  isSelected: boolean;
 }
 
-export default function IngredientItem({ ingredient }: Props) {
+function IngredientItem({ ingredient, isSelected, ...props }: Props) {
   return (
     <TouchableOpacity
-      className='p-4 bg-white border border-gray-100 rounded-lg'
-      onPress={(e) => console.log("pressed")}
+      className={clsx(
+        "p-4 rounded-lg border border-gray-100 hover:bg-red-500",
+        isSelected ? "bg-blue-50 border-l-4 border-l-blue-500" : " bg-white"
+      )}
+      {...props}
     >
-      <Text className='font-semibold'>{ingredient.strIngredient}</Text>
+      <Text className={clsx("font-semibold", isSelected && "text-blue-500")}>
+        {ingredient.strIngredient}
+      </Text>
     </TouchableOpacity>
   );
 }
+
+export default IngredientItem;

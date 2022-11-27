@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 
-function useFetch(url: string, options?: any) {
-  const [data, setData] = useState<any>(null);
+function useFetch<T>(url: string, options?: any) {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
 

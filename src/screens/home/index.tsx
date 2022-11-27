@@ -1,38 +1,85 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { SafeAreaView, Text, TextInput, View } from "react-native";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  NativeSyntheticEvent,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TextInputChangeEventData,
+  View,
+} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { useDebounce } from "use-debounce";
 import IngredientList from "../../components/ingredient-list";
 import useFetch from "../../hooks/useFetch";
 import { Ingredient } from "../../types/ingredient";
+import api from "../../utils/api";
+import debounce from "lodash/debounce";
+import ingredientsList from "../../../data/ingredients.json";
+import _ from "lodash";
 
-export default function HomeScreen() {
-  const [searchText, onChangeSearchText] = useState("");
-  const { data, loading, error } = useFetch("/list.php", {
+export interface SelectableIngredient extends Ingredient {
+  selected: boolean;
+  show: boolean;
+}
+
+async function fetchIngredients() {
+  return api.get("/list.php", {
     params: {
       i: "list",
     },
   });
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-  const [displayedIngredients, setDisplayedIngredients] = useState<
-    Ingredient[]
-  >([]);
-  const [debouncedSearchText] = useDebounce(searchText, 500);
+}
 
-  useMemo(() => {
-    setIngredients(data?.meals || []);
-    setDisplayedIngredients(data?.meals || []);
-  }, [data]);
+export default function HomeScreen() {
+  const [searchText, onChangeSearchText] = useState("");
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    ingredientsList.meals
+  );
+  const [filteredIngredients, setFilteredIngredients] = useState<Ingredient[]>(
+    ingredientsList.meals
+  );
+  //const [debouncedSearchText] = useDebounce(searchText, 300);
 
-  useEffect(() => {
-    let temp = ingredients ? [...ingredients] : [];
-    temp = temp.filter((i) => {
-      return i.strIngredient.toLowerCase().includes(searchText.toLowerCase());
-    });
-    setDisplayedIngredients(temp);
-  }, [debouncedSearchText]);
+  /*useEffect(() => {
+    console.log("first");
+    fetchIngredients()
+      .then((res) => {
+        setIngredients(res.data.meals);
+        setFilteredIngredients(res.data.meals);
+      })
+      .catch((e) => console.error(e));
+  }, []);*/
 
-  if (loading) {
+  /*useMemo(() => {
+    console.log("search");
+    if (debouncedSearchText) {
+      const filter = () => {
+        let temp: Ingredient[] = ingredients ? [...ingredients] : [];
+        temp = temp.filter((i) =>
+          i.strIngredient.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setFilteredIngredients(temp);
+      };
+      filter();
+    }
+  }, [debouncedSearchText]);*/
+
+  function handleSearch(text: string) {
+    debounce(text);
+  }
+
+  const debounce = useCallback(
+    _.debounce((_searchVal: string) => {
+      let temp: Ingredient[] = ingredients ? [...ingredients] : [];
+      temp = temp.filter((i) =>
+        i.strIngredient.toLowerCase().includes(_searchVal.toLowerCase())
+      );
+      setFilteredIngredients(temp);
+    }, 1000),
+    []
+  );
+
+  /*if (loading) {
     return (
       <View>
         <Text>Loading...</Text>
@@ -41,15 +88,14 @@ export default function HomeScreen() {
   }
 
   if (error) {
-    console.log(error);
     return (
       <View>
         <Text>Something went wrong...</Text>
       </View>
     );
-  }
+  }*/
 
-  if (!data) {
+  if (ingredients.length === 0 || filteredIngredients.length === 0) {
     return (
       <View>
         <Text>No data available...</Text>
@@ -71,14 +117,10 @@ export default function HomeScreen() {
             }}
             size={18}
           />
-          <TextInput
-            className='flex-1 py-3 pr-3'
-            onChangeText={onChangeSearchText}
-            value={searchText}
-          />
+          <TextInput className='flex-1 py-3 pr-3' onChangeText={handleSearch} />
         </View>
 
-        <IngredientList ingredients={displayedIngredients} />
+        <IngredientList ingredients={filteredIngredients} />
       </View>
     </View>
   );
