@@ -2,10 +2,10 @@ import React from "react";
 import { Text, View } from "react-native";
 
 export default function MealsScreen({ route, navigation }: any) {
-  const { ingredient } = route.params;
+  const { ingredientIds } = route.params;
   return (
     <View>
-      <Text></Text>
+      <Text>{JSON.stringify(ingredientIds, null, 2)}</Text>
     </View>
   );
 }

@@ -10,28 +10,31 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { SelectableIngredient } from "../../screens/home";
 import { Ingredient } from "../../types/ingredient";
 import { MealsScreenParamList } from "../../types/MealsScreenParamList";
 
-interface Props extends TouchableOpacityProps {
-  ingredient: Ingredient;
-  isSelected: boolean;
+interface Props {
+  ingredientName: string;
+  isChecked: boolean;
+  onPress?: ((checked: boolean) => void) | undefined;
 }
 
-function IngredientItem({ ingredient, isSelected, ...props }: Props) {
+function IngredientItem({ ingredientName, isChecked, onPress }: Props) {
   return (
-    <TouchableOpacity
-      className={clsx(
-        "p-4 rounded-lg border border-gray-100 hover:bg-red-500",
-        isSelected ? "bg-blue-50 border-l-4 border-l-blue-500" : " bg-white"
-      )}
-      {...props}
-    >
-      <Text className={clsx("font-semibold", isSelected && "text-blue-500")}>
-        {ingredient.strIngredient}
-      </Text>
-    </TouchableOpacity>
+    <BouncyCheckbox
+      className={clsx("p-4 rounded-lg border border-gray-200 flex bg-white")}
+      textComponent={
+        <Text className='ml-3 text-base text-gray-500 no-underline truncate shrink text-ellipsis'>
+          {ingredientName}
+        </Text>
+      }
+      fillColor='#3b82f6'
+      isChecked={isChecked}
+      disableBuiltInState
+      onPress={onPress}
+    />
   );
 }
 
