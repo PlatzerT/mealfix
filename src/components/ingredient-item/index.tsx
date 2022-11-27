@@ -38,4 +38,4 @@ function IngredientItem({ ingredientName, isChecked, onPress }: Props) {
   );
 }
 
-export default IngredientItem;
+export default memo(IngredientItem);
