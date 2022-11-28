@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 export default function HomeTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='Select ingredients' component={HomeScreen} />
       <Stack.Screen name='Meals' component={MealsScreen} />
     </Stack.Navigator>
   );

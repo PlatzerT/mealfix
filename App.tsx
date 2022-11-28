@@ -19,11 +19,11 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon(props) {
             let iconName;
-            if (route.name === "HomeTab") {
-              iconName = props.focused ? "ios-home" : "ios-home-outline";
-            } else if (route.name === "Favoriten") {
+            if (route.name === "Finder") {
+              iconName = props.focused ? "ios-search" : "ios-search-outline";
+            } else if (route.name === "Favourites") {
               iconName = props.focused ? "ios-star" : "ios-star-outline";
-            } else if (route.name === "Verlauf") {
+            } else if (route.name === "History") {
               iconName = props.focused ? "ios-refresh" : "ios-refresh-outline";
             }
             return (
@@ -37,12 +37,12 @@ export default function App() {
         })}
       >
         <Tab.Screen
-          name='HomeTab'
+          name='Finder'
           component={HomeScreen}
           options={{ headerShown: false }}
         />
-        <Tab.Screen name='Favoriten' component={FavoritesTab} />
-        <Tab.Screen name='Verlauf' component={HistoryTab} />
+        <Tab.Screen name='Favourites' component={FavoritesTab} />
+        <Tab.Screen name='History' component={HistoryTab} />
       </Tab.Navigator>
     </NavigationContainer>
   );
