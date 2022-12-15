@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import FavoritesScreen from "./src/screens/favorites";
 import HistoryScreen from "./src/screens/history";
 import HomeScreen from "./src/screens/home";
+import MealsScreen from "./src/screens/meals";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name='Home' component={HomeScreen} />
+        <Tab.Screen name='Meals' component={MealsScreen} />
         <Tab.Screen name='Favoriten' component={FavoritesScreen} />
         <Tab.Screen name='Verlauf' component={HistoryScreen} />
       </Tab.Navigator>

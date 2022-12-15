@@ -10,8 +10,16 @@ export async function getAllIngredients() {
     const ingredients = await res.data;
     console.log(ingredients.meals);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
 export async function getMealsByIngredients(ingredients: string[]) {}
+
+export async function getAllMeals(){
+    return await api.get("/search.php", {
+      params: {
+        f: "c",
+      },
+    }).then(res => res.data.meals).catch(e => console.error(e));
+}
