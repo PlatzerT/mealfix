@@ -61,7 +61,7 @@ export default function MealsScreen() {
           <FlatList
             data={mealslist}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.idMeal}
           />
         </StyledView>
       </StyledSafeAreaView>
